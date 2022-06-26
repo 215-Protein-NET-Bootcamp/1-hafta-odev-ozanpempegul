@@ -19,21 +19,21 @@ namespace Interest_Rate_Web_API.Controllers
             float TotalInterest = 0f;
 
 
-            if (LoanType == "sme loan") // esnaf kredisi
+            if (LoanType == "sme") // esnaf kredisi
             {
                 InterestRate = 0.0123f;
             }
-            else if (LoanType == "housing loan")
+            else if (LoanType == "housing")
             {
                 InterestRate = 0.0099f;
             }
 
-            else if (LoanType == "vehicle loan")
+            else if (LoanType == "vehicle")
             {
                 InterestRate = 0.0165f;
             }
 
-            else if (LoanType == "student loan")
+            else if (LoanType == "student")
             {
                 InterestRate = 0.0135f;
             }
@@ -61,12 +61,10 @@ namespace Interest_Rate_Web_API.Controllers
         }
 
         [HttpGet("PaymentPlan")]
-        public List<float> GetPaymentPlan(string LoanType, double LoanAmount, int Delay)
+        public List<MonthlyInfo> GetPaymentPlan(string LoanType, double LoanAmount, int Delay)
         {
             float InterestRate;
-            double MonthlyPayment;
-            float RepaymentAmount = 0f;
-            float TotalInterest = 0f;            
+            double MonthlyPayment;        
 
 
             if (LoanType == "sme") // esnaf kredisi
@@ -92,22 +90,25 @@ namespace Interest_Rate_Web_API.Controllers
             {
                 InterestRate = 0.02f;
             }
-
-
+                        
             MonthlyPayment = LoanAmount * Math.Pow((1 + InterestRate), Delay) * InterestRate / (Math.Pow((1 + InterestRate), Delay) - 1);
 
+            List<MonthlyInfo> Result = new List<MonthlyInfo>();
 
-
-            RepaymentAmount = (float)MonthlyPayment * Delay;
-            TotalInterest = (float)RepaymentAmount - (float)LoanAmount;
-
-
-            List<float> Result = new List<float>()
+            for (int i = 1; i <= Delay; i++)
             {
-
-                TotalInterest, RepaymentAmount
-
-            };
+                float MonthlyInterest = (float)LoanAmount * (float)InterestRate;
+                float PaidCapital = (float)MonthlyPayment - MonthlyInterest;
+                LoanAmount -= MonthlyPayment;
+                Result.Add(new MonthlyInfo
+                {
+                    Month = i,
+                    MonthlyPayment = (float)MonthlyPayment,
+                    PaidInterest = MonthlyInterest,
+                    PaidCapital = (float)MonthlyPayment - MonthlyInterest,
+                    RemainingDebt = (float)LoanAmount - (float)PaidCapital
+                });
+            }
 
             return Result;
 
