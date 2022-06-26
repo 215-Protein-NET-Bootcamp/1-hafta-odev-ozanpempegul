@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace Interest_Rate_Web_API.Controllers
 {
@@ -7,79 +9,55 @@ namespace Interest_Rate_Web_API.Controllers
     [Route("[controller]s")]
     public class InterestRateController : Controller
     {
-        // GET: HomeController
-        public ActionResult Index()
-        {
-            return View();
-        }
 
-        // GET: HomeController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet]
+        public List<float> GetInterestRate(string LoanType, double LoanAmount, int Delay)
         {
-            return View();
-        }
+            float InterestRate;
+            double MonthlyPayment;
+            float RepaymentAmount = 0f;
+            float TotalInterest = 0f;
 
-        // GET: HomeController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
 
-        // POST: HomeController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
+            if (LoanType == "sme loan") // esnaf kredisi
             {
-                return RedirectToAction(nameof(Index));
+                InterestRate = 0.0123f;
             }
-            catch
+            else if (LoanType == "housing loan")
             {
-                return View();
+                InterestRate = 0.0099f;
             }
-        }
 
-        // GET: HomeController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+            else if (LoanType == "vehicle loan")
+            {
+                InterestRate = 0.0165f;
+            }
 
-        // POST: HomeController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
+            else if (LoanType == "student loan")
             {
-                return RedirectToAction(nameof(Index));
+                InterestRate = 0.0135f;
             }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: HomeController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+            else
+            {
+                InterestRate = 0.02f;
+            }
 
-        // POST: HomeController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
+
+            MonthlyPayment = LoanAmount * Math.Pow((1 + InterestRate), Delay) * InterestRate / (Math.Pow((1 + InterestRate), Delay) - 1);
+            RepaymentAmount = (float)MonthlyPayment * Delay;
+            TotalInterest = (float)RepaymentAmount - (float)LoanAmount;
+
+
+            List<float> Result = new List<float>()
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+
+                TotalInterest, RepaymentAmount
+
+            };
+
+            return Result;
+
         }
     }
 }
