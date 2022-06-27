@@ -61,7 +61,7 @@ namespace Interest_Rate_Web_API.Controllers
         }
 
         [HttpGet("PaymentPlan")]
-        public List<MonthlyInfo> GetPaymentPlan(string LoanType, double LoanAmount, int Delay)
+        public IEnumerable<MonthlyInfo> GetPaymentPlan(string LoanType, double LoanAmount, int Delay)
         {
             float InterestRate;
             double MonthlyPayment;        
@@ -90,16 +90,15 @@ namespace Interest_Rate_Web_API.Controllers
             {
                 InterestRate = 0.02f;
             }
-                        
+
             MonthlyPayment = LoanAmount * Math.Pow((1 + InterestRate), Delay) * InterestRate / (Math.Pow((1 + InterestRate), Delay) - 1);
 
             List<MonthlyInfo> Result = new List<MonthlyInfo>();
 
             for (int i = 1; i <= Delay; i++)
             {
-                float MonthlyInterest = (float)LoanAmount * (float)InterestRate;
-                float PaidCapital = (float)MonthlyPayment - MonthlyInterest;
-                LoanAmount -= MonthlyPayment;
+                float MonthlyInterest = (float)LoanAmount * InterestRate;
+                float PaidCapital = (float)MonthlyPayment - MonthlyInterest;                
                 Result.Add(new MonthlyInfo
                 {
                     Month = i,
@@ -108,6 +107,7 @@ namespace Interest_Rate_Web_API.Controllers
                     PaidCapital = (float)MonthlyPayment - MonthlyInterest,
                     RemainingDebt = (float)LoanAmount - (float)PaidCapital
                 });
+                LoanAmount -= PaidCapital;
             }
 
             return Result;
