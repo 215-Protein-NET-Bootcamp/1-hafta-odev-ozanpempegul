@@ -64,7 +64,7 @@ namespace Interest_Rate_Web_API.Controllers
         public List<MonthlyInfo> GetPaymentPlan(string LoanType, float LoanAmount, int Delay)
         {
             float InterestRate;
-            double MonthlyPayment;        
+            float MonthlyPayment;        
 
 
             if (LoanType == "sme") // esnaf kredisi
@@ -91,7 +91,7 @@ namespace Interest_Rate_Web_API.Controllers
                 InterestRate = 0.02f;
             }
 
-            MonthlyPayment = LoanAmount * Math.Pow((1 + InterestRate), Delay) * InterestRate / (Math.Pow((1 + InterestRate), Delay) - 1);
+            MonthlyPayment = (float)(LoanAmount * Math.Pow((1 + InterestRate), Delay) * InterestRate / (Math.Pow((1 + InterestRate), Delay) - 1));
 
             List<MonthlyInfo> Result = new List<MonthlyInfo>();
 
