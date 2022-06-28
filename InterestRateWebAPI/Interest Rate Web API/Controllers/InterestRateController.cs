@@ -12,7 +12,7 @@ namespace Interest_Rate_Web_API.Controllers
     {
 
         [HttpGet("TotalRepayment")]
-        public List<double> GetTotalRepayment(string LoanType, float LoanAmount, int Delay)
+        public List<double> GetTotalRepayment(string LoanType, int LoanAmount, int Delay)
         {
             float InterestRate;
             float MonthlyPayment;
@@ -73,7 +73,7 @@ namespace Interest_Rate_Web_API.Controllers
 
         [HttpGet("PaymentPlan")]
 
-        public List<MonthlyInfo> GetPaymentPlan(string LoanType, float LoanAmount, int Delay)
+        public List<MonthlyInfo> GetPaymentPlan(string LoanType, int LoanAmount, int Delay)
 
         {
             float InterestRate;
@@ -131,7 +131,7 @@ namespace Interest_Rate_Web_API.Controllers
                     PaidCapital = (int)Math.Round(MonthlyPayment - MonthlyInterest),
                     RemainingDebt = (int)Math.Round(LoanAmount - PaidCapital)
                 });
-                LoanAmount -= PaidCapital;
+                LoanAmount -= (int)PaidCapital;
             }
 
             return Result;
