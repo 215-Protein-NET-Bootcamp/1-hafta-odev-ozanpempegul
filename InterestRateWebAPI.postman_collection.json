@@ -1,0 +1,564 @@
+{
+	"info": {
+		"_postman_id": "176100a4-66ac-46e2-822a-b8294cce4f26",
+		"name": "InterestRateWebAPI",
+		"description": "Key:\n\nLoanType\n\nLoanAmount\n\nDelay\n\n*   Valid Loan Types: sme, housing, vehicle, student\n*   Loan Amount should be between 0 and 1000000.\n*   Enter your Delay in months. It cannot be more than 240.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21643493"
+	},
+	"item": [
+		{
+			"name": "Total Repayment",
+			"protocolProfileBehavior": {
+				"disableUrlEncoding": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44342/InterestRates/TotalRepayment?LoanType=sme&LoanAmount=300000&Delay=120",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44342",
+					"path": [
+						"InterestRates",
+						"TotalRepayment"
+					],
+					"query": [
+						{
+							"key": "LoanType",
+							"value": "sme"
+						},
+						{
+							"key": "LoanAmount",
+							"value": "300000"
+						},
+						{
+							"key": "Delay",
+							"value": "120"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Valid",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44342/InterestRates/TotalRepayment?LoanType=sme&LoanAmount=300000&Delay=120",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44342",
+							"path": [
+								"InterestRates",
+								"TotalRepayment"
+							],
+							"query": [
+								{
+									"key": "LoanType",
+									"value": "sme"
+								},
+								{
+									"key": "LoanAmount",
+									"value": "300000"
+								},
+								{
+									"key": "Delay",
+									"value": "120"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 28 Jun 2022 07:54:33 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    275525.94,\n    575525.94\n]"
+				},
+				{
+					"name": "Invalid Loan Type",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44342/InterestRates/TotalRepayment?LoanType=a&LoanAmount=50000&Delay=9",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44342",
+							"path": [
+								"InterestRates",
+								"TotalRepayment"
+							],
+							"query": [
+								{
+									"key": "LoanType",
+									"value": "a"
+								},
+								{
+									"key": "LoanAmount",
+									"value": "50000"
+								},
+								{
+									"key": "Delay",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 28 Jun 2022 06:56:59 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2346"
+						}
+					],
+					"cookie": [],
+					"body": "System.Exception: Loan Types: sme, housing, vehicle, student\r\n   at Interest_Rate_Web_API.Controllers.InterestRateController.GetTotalRepayment(String LoanType, Single LoanAmount, Int32 Delay)\r\n   at lambda_method2(Closure , Object , Object[] )\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)\r\n   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)\r\n   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)\r\n   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)\r\n   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)\r\n\r\nHEADERS\r\n=======\r\nAccept: */*\r\nAccept-Encoding: gzip, deflate, br\r\nConnection: keep-alive\r\nHost: localhost:44342\r\nUser-Agent: PostmanRuntime/7.29.0\r\nPostman-Token: 319b2ecc-1c5e-43c7-a06d-ec45f1a81bff\r\n"
+				},
+				{
+					"name": "Invalid Loan Amount",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44342/InterestRates/TotalRepayment?LoanType=sme&LoanAmount=-40&Delay=9",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44342",
+							"path": [
+								"InterestRates",
+								"TotalRepayment"
+							],
+							"query": [
+								{
+									"key": "LoanType",
+									"value": "sme"
+								},
+								{
+									"key": "LoanAmount",
+									"value": "-40"
+								},
+								{
+									"key": "Delay",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 28 Jun 2022 06:58:58 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "System.Exception: Invalid Loan Amount\r\n   at Interest_Rate_Web_API.Controllers.InterestRateController.GetTotalRepayment(String LoanType, Single LoanAmount, Int32 Delay)\r\n   at lambda_method2(Closure , Object , Object[] )\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)\r\n   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)\r\n   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)\r\n   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)\r\n   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)\r\n\r\nHEADERS\r\n=======\r\nAccept: */*\r\nAccept-Encoding: gzip, deflate, br\r\nConnection: keep-alive\r\nHost: localhost:44342\r\nUser-Agent: PostmanRuntime/7.29.0\r\nPostman-Token: 2dc77193-3c5c-4b3a-9875-42c8cb37409c\r\n"
+				},
+				{
+					"name": "Invalid Delay",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44342/InterestRates/TotalRepayment?LoanType=sme&LoanAmount=30000&Delay=250",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44342",
+							"path": [
+								"InterestRates",
+								"TotalRepayment"
+							],
+							"query": [
+								{
+									"key": "LoanType",
+									"value": "sme"
+								},
+								{
+									"key": "LoanAmount",
+									"value": "30000"
+								},
+								{
+									"key": "Delay",
+									"value": "250"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 28 Jun 2022 07:31:31 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2460"
+						}
+					],
+					"cookie": [],
+					"body": "System.Exception: Invalid Delay\r\n   at Interest_Rate_Web_API.Controllers.InterestRateController.GetTotalRepayment(String LoanType, Single LoanAmount, Int32 Delay) in C:\\Users\\ozanp\\Desktop\\protein_.net_bootcamp\\hafta_1\\InterestRateWebAPI\\Interest Rate Web API\\Controllers\\InterestRateController.cs:line 54\r\n   at lambda_method2(Closure , Object , Object[] )\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)\r\n   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)\r\n   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)\r\n   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)\r\n   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)\r\n\r\nHEADERS\r\n=======\r\nAccept: */*\r\nAccept-Encoding: gzip, deflate, br\r\nConnection: keep-alive\r\nHost: localhost:44342\r\nUser-Agent: PostmanRuntime/7.29.0\r\nPostman-Token: ea6e81c9-d8a0-416b-95ad-5818144b687d\r\n"
+				}
+			]
+		},
+		{
+			"name": "Payment Plan",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44342/InterestRates/PaymentPlan?LoanType=student&LoanAmount=50000&Delay=9",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44342",
+					"path": [
+						"InterestRates",
+						"PaymentPlan"
+					],
+					"query": [
+						{
+							"key": "LoanType",
+							"value": "student"
+						},
+						{
+							"key": "LoanAmount",
+							"value": "50000"
+						},
+						{
+							"key": "Delay",
+							"value": "9"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Valid",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44342/InterestRates/PaymentPlan?LoanType=student&LoanAmount=50000&Delay=9",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44342",
+							"path": [
+								"InterestRates",
+								"PaymentPlan"
+							],
+							"query": [
+								{
+									"key": "LoanType",
+									"value": "student"
+								},
+								{
+									"key": "LoanAmount",
+									"value": "50000"
+								},
+								{
+									"key": "Delay",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 28 Jun 2022 07:53:36 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"month\": 1,\n        \"monthlyPayment\": 5837,\n        \"paidInterest\": 500,\n        \"paidCapital\": 5337,\n        \"remainingDebt\": 44663\n    },\n    {\n        \"month\": 2,\n        \"monthlyPayment\": 5837,\n        \"paidInterest\": 447,\n        \"paidCapital\": 5390,\n        \"remainingDebt\": 39273\n    },\n    {\n        \"month\": 3,\n        \"monthlyPayment\": 5837,\n        \"paidInterest\": 393,\n        \"paidCapital\": 5444,\n        \"remainingDebt\": 33828\n    },\n    {\n        \"month\": 4,\n        \"monthlyPayment\": 5837,\n        \"paidInterest\": 338,\n        \"paidCapital\": 5499,\n        \"remainingDebt\": 28330\n    },\n    {\n        \"month\": 5,\n        \"monthlyPayment\": 5837,\n        \"paidInterest\": 283,\n        \"paidCapital\": 5554,\n        \"remainingDebt\": 22776\n    },\n    {\n        \"month\": 6,\n        \"monthlyPayment\": 5837,\n        \"paidInterest\": 228,\n        \"paidCapital\": 5609,\n        \"remainingDebt\": 17167\n    },\n    {\n        \"month\": 7,\n        \"monthlyPayment\": 5837,\n        \"paidInterest\": 172,\n        \"paidCapital\": 5665,\n        \"remainingDebt\": 11501\n    },\n    {\n        \"month\": 8,\n        \"monthlyPayment\": 5837,\n        \"paidInterest\": 115,\n        \"paidCapital\": 5722,\n        \"remainingDebt\": 5779\n    },\n    {\n        \"month\": 9,\n        \"monthlyPayment\": 5837,\n        \"paidInterest\": 58,\n        \"paidCapital\": 5779,\n        \"remainingDebt\": 0\n    }\n]"
+				},
+				{
+					"name": "Invalid Loan Type",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44342/InterestRates/PaymentPlan?LoanType=a&LoanAmount=50000&Delay=9",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44342",
+							"path": [
+								"InterestRates",
+								"PaymentPlan"
+							],
+							"query": [
+								{
+									"key": "LoanType",
+									"value": "a"
+								},
+								{
+									"key": "LoanAmount",
+									"value": "50000"
+								},
+								{
+									"key": "Delay",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 28 Jun 2022 07:08:30 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2343"
+						}
+					],
+					"cookie": [],
+					"body": "System.Exception: Loan Types: sme, housing, vehicle, student\r\n   at Interest_Rate_Web_API.Controllers.InterestRateController.GetPaymentPlan(String LoanType, Single LoanAmount, Int32 Delay)\r\n   at lambda_method4(Closure , Object , Object[] )\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)\r\n   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)\r\n   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)\r\n   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)\r\n   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)\r\n\r\nHEADERS\r\n=======\r\nAccept: */*\r\nAccept-Encoding: gzip, deflate, br\r\nConnection: keep-alive\r\nHost: localhost:44342\r\nUser-Agent: PostmanRuntime/7.29.0\r\nPostman-Token: 40ed78d3-6cef-4ad3-ba51-419a6f63d126\r\n"
+				},
+				{
+					"name": "Invalid Loan Amount",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44342/InterestRates/PaymentPlan?LoanType=student&LoanAmount=10000000&Delay=36",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44342",
+							"path": [
+								"InterestRates",
+								"PaymentPlan"
+							],
+							"query": [
+								{
+									"key": "LoanType",
+									"value": "student"
+								},
+								{
+									"key": "LoanAmount",
+									"value": "10000000"
+								},
+								{
+									"key": "Delay",
+									"value": "36"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 28 Jun 2022 07:09:45 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2320"
+						}
+					],
+					"cookie": [],
+					"body": "System.Exception: Invalid Loan Amount\r\n   at Interest_Rate_Web_API.Controllers.InterestRateController.GetPaymentPlan(String LoanType, Single LoanAmount, Int32 Delay)\r\n   at lambda_method4(Closure , Object , Object[] )\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)\r\n   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)\r\n   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)\r\n   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)\r\n   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)\r\n\r\nHEADERS\r\n=======\r\nAccept: */*\r\nAccept-Encoding: gzip, deflate, br\r\nConnection: keep-alive\r\nHost: localhost:44342\r\nUser-Agent: PostmanRuntime/7.29.0\r\nPostman-Token: 01da99d1-0908-4ed3-b754-c00082f0d5a8\r\n"
+				},
+				{
+					"name": "Invalid Delay",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44342/InterestRates/PaymentPlan?LoanType=student&LoanAmount=30000&Delay=-3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44342",
+							"path": [
+								"InterestRates",
+								"PaymentPlan"
+							],
+							"query": [
+								{
+									"key": "LoanType",
+									"value": "student"
+								},
+								{
+									"key": "LoanAmount",
+									"value": "30000"
+								},
+								{
+									"key": "Delay",
+									"value": "-3"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						},
+						{
+							"key": "Server",
+							"value": "Microsoft-IIS/10.0"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 28 Jun 2022 07:10:26 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2314"
+						}
+					],
+					"cookie": [],
+					"body": "System.Exception: Invalid Delay\r\n   at Interest_Rate_Web_API.Controllers.InterestRateController.GetPaymentPlan(String LoanType, Single LoanAmount, Int32 Delay)\r\n   at lambda_method4(Closure , Object , Object[] )\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)\r\n   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)\r\n   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)\r\n   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)\r\n   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)\r\n\r\nHEADERS\r\n=======\r\nAccept: */*\r\nAccept-Encoding: gzip, deflate, br\r\nConnection: keep-alive\r\nHost: localhost:44342\r\nUser-Agent: PostmanRuntime/7.29.0\r\nPostman-Token: f3fb0c89-38ad-49f7-8b34-f50c4ad92aaf\r\n"
+				}
+			]
+		}
+	]
+}

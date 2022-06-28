@@ -4,12 +4,12 @@
     {
         public int Month { get; set; }
 
-        public float MonthlyPayment { get; set; }
+        public int MonthlyPayment { get; set; }
 
-        public float PaidInterest { get; set; }
+        public int PaidInterest { get; set; }
 
-        public float PaidCapital { get; set; }
+        public int PaidCapital { get; set; }
 
-        public float RemainingDebt { get; set; }
+        public int RemainingDebt { get; set; }
     }
 }

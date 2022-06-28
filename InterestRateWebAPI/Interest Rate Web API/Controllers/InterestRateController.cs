@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Net;
 
 namespace Interest_Rate_Web_API.Controllers
 {
@@ -11,12 +12,12 @@ namespace Interest_Rate_Web_API.Controllers
     {
 
         [HttpGet("TotalRepayment")]
-        public List<float> GetTotalRepayment(string LoanType, float LoanAmount, int Delay)
+        public List<double> GetTotalRepayment(string LoanType, float LoanAmount, int Delay)
         {
             float InterestRate;
             float MonthlyPayment;
-            float RepaymentAmount = 0f;
-            float TotalInterest = 0f;
+            float RepaymentAmount;
+            float TotalInterest;
 
 
             if (LoanType == "sme") // esnaf kredisi
@@ -40,7 +41,17 @@ namespace Interest_Rate_Web_API.Controllers
 
             else
             {
-                InterestRate = 0.02f;
+                throw new Exception("Loan Types: sme, housing, vehicle, student");
+            }
+
+            if (LoanAmount <= 0 || LoanAmount > 1000000)
+            {
+                throw new Exception("Invalid Loan Amount");
+            }
+
+            if (Delay < 0 || Delay >= 240)
+            {
+                throw new Exception("Invalid Delay");
             }
 
 
@@ -49,10 +60,10 @@ namespace Interest_Rate_Web_API.Controllers
             TotalInterest = (float)RepaymentAmount - (float)LoanAmount;
 
 
-            List<float> Result = new List<float>()
+            List<double> Result = new List<double>()
             {
 
-                TotalInterest, RepaymentAmount
+                Math.Round(TotalInterest, 2), Math.Round(RepaymentAmount, 2)
 
             };
 
@@ -61,10 +72,12 @@ namespace Interest_Rate_Web_API.Controllers
         }
 
         [HttpGet("PaymentPlan")]
+
         public List<MonthlyInfo> GetPaymentPlan(string LoanType, float LoanAmount, int Delay)
+
         {
             float InterestRate;
-            float MonthlyPayment;        
+            double MonthlyPayment;        
 
 
             if (LoanType == "sme") // esnaf kredisi
@@ -83,29 +96,40 @@ namespace Interest_Rate_Web_API.Controllers
 
             else if (LoanType == "student")
             {
-                InterestRate = 0.0135f;
+                InterestRate = 0.01f;
             }
 
             else
             {
-                InterestRate = 0.02f;
+                throw new Exception("Loan Types: sme, housing, vehicle, student");
             }
 
-            MonthlyPayment = (float)(LoanAmount * Math.Pow((1 + InterestRate), Delay) * InterestRate / (Math.Pow((1 + InterestRate), Delay) - 1));
+            if (LoanAmount <= 0 || LoanAmount > 1000000)
+            {
+                throw new Exception("Invalid Loan Amount");
+            }
+
+            if (Delay < 0 || Delay > 240)
+            {
+                throw new Exception("Invalid Delay");
+            }
+
+            MonthlyPayment = LoanAmount * Math.Pow((1 + InterestRate), Delay) * InterestRate / (Math.Pow((1 + InterestRate), Delay) - 1);
+
 
             List<MonthlyInfo> Result = new List<MonthlyInfo>();
 
             for (int i = 1; i <= Delay; i++)
             {
-                float MonthlyInterest = (float)LoanAmount * InterestRate;
+                float MonthlyInterest = (float)LoanAmount * (float)InterestRate;
                 float PaidCapital = (float)MonthlyPayment - MonthlyInterest;                
                 Result.Add(new MonthlyInfo
                 {
                     Month = i,
-                    MonthlyPayment = (float)MonthlyPayment,
-                    PaidInterest = MonthlyInterest,
-                    PaidCapital = (float)MonthlyPayment - MonthlyInterest,
-                    RemainingDebt = (float)LoanAmount - (float)PaidCapital
+                    MonthlyPayment = (int)Math.Round(MonthlyPayment),
+                    PaidInterest = (int)Math.Round(MonthlyInterest),
+                    PaidCapital = (int)Math.Round(MonthlyPayment - MonthlyInterest),
+                    RemainingDebt = (int)Math.Round(LoanAmount - PaidCapital)
                 });
                 LoanAmount -= PaidCapital;
             }
